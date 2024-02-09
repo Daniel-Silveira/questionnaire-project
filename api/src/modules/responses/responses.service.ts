@@ -21,15 +21,22 @@ export class ResponsesService {
     return { responses }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} response`
+  async findOne(id: number) {
+    const response = await this.responseModal.findByPk<Responses>(id)
+
+    return { response }
   }
 
-  update(id: number, updateResponseDto: UpdateResponseDto) {
-    return `This action updates a #${id} response`
+  async update(id: number, updateResponseDto: UpdateResponseDto) {
+    const responseUpdated = await this.responseModal.update(
+      { ...updateResponseDto },
+      { where: { id }, returning: true }
+    )
+
+    return { response: responseUpdated }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} response`
+  async remove(id: number) {
+    return await this.responseModal.destroy({ where: { id } })
   }
 }

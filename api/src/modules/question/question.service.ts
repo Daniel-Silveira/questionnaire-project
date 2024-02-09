@@ -21,15 +21,22 @@ export class QuestionService {
     return { questions }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} question`
+  async findOne(id: number) {
+    const question = await this.questionModel.findByPk<Question>(id)
+
+    return { question }
   }
 
-  update(id: number, updateQuestionDto: UpdateQuestionDto) {
-    return `This action updates a #${id} question`
+  async update(id: number, updateQuestionDto: UpdateQuestionDto) {
+    const questionUpdated = await this.questionModel.update(
+      { ...updateQuestionDto },
+      { where: { id }, returning: true }
+    )
+
+    return { question: questionUpdated }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} question`
+  async remove(id: number) {
+    return await this.questionModel.destroy({ where: { id } })
   }
 }

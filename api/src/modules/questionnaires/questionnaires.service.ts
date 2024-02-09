@@ -30,8 +30,13 @@ export class QuestionnairesService {
     return { questionnaire }
   }
 
-  update(id: number, updateQuestionnaireDto: UpdateQuestionnaireDto) {
-    return `This action updates a #${id} questionnaire`
+  async update(id: number, updateQuestionnaireDto: UpdateQuestionnaireDto) {
+    const questionnaireUpdated = await this.questionnaireModel.update(
+      { ...updateQuestionnaireDto },
+      { where: { id }, returning: true }
+    )
+
+    return { questionnaire: questionnaireUpdated }
   }
 
   async remove(id: number) {
