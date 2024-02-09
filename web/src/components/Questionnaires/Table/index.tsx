@@ -7,6 +7,7 @@ type QuestionnairesTableProps = {
     name: string
     description: string
     questions: []
+    responses: []
     createdAt: string
   }[]
 }
@@ -31,6 +32,9 @@ export const QuestionnairesTable = ({ data }: QuestionnairesTableProps) => {
           </th>
           <th scope="col" className="px-6 py-3">
             Perguntas
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Respostas
           </th>
           <th scope="col" className="px-6 py-3">
             Criado em
@@ -63,6 +67,13 @@ export const QuestionnairesTable = ({ data }: QuestionnairesTableProps) => {
               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
               {item.questions?.length || 0}
+            </th>
+
+            <th
+              scope="row"
+              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              {item.responses?.length || 0}
             </th>
 
             <th

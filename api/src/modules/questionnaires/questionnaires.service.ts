@@ -18,7 +18,7 @@ export class QuestionnairesService {
 
   async findAll() {
     const questionnaires = await this.questionnaireModel.findAll<Questionnaire>({
-      include: ['questions'],
+      include: ['questions', 'responses'],
     })
 
     return { questionnaires }

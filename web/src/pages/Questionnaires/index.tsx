@@ -1,29 +1,18 @@
 import { Container } from '../../components/Container'
-import { QuestionnairesForm } from '../../components/Questionnaires/Form'
 import { QuestionnairesTable } from '../../components/Questionnaires/Table'
 import { useQuestionnaire } from '../../hooks/useQuestionnaire'
-import { Modal } from '../../components/Modal'
 import { useParams } from '../../hooks/useParams'
-import { QuestionForm } from '../../components/Question/Form'
+import { Modals } from '../../components/Questionnaires/Modals'
 
 export const Questionnaires = () => {
-  const { data, handleCreate } = useQuestionnaire()
-  const { getParams, setParams } = useParams()
-  const isOpenQuestionnaireModal = getParams('modal') === 'questionnaires'
-  const isOpenQuestionModal = getParams('modal') === 'question'
+  const { data } = useQuestionnaire()
+  const { setParams } = useParams()
 
   const handleOpenQuestionnairesModal = () => setParams('modal', 'questionnaires')
 
   return (
     <>
-      <Modal.Root isOpen={isOpenQuestionnaireModal}>
-        <Modal.Header title="Novo questionário" />
-        <QuestionnairesForm handleCreate={handleCreate} />
-      </Modal.Root>
-      <Modal.Root isOpen={isOpenQuestionModal}>
-        <Modal.Header title="Nova pergunta" />
-        <QuestionForm />
-      </Modal.Root>
+      <Modals />
       <Container.Root>
         <Container.Header
           title="Questionários"
