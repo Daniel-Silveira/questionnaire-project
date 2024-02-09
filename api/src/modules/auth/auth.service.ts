@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt'
-import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common'
 import { CreateUserDto } from './dto/create.dto'
 import { LoginDto } from './dto/login.dto'
 import { JwtService } from '@nestjs/jwt'
@@ -12,11 +12,13 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async createUser(createUserDto: CreateUserDto) {
     try {
-      const user = await this.userService.findOneByEmail(createUserDto.email)
+      const { user } = await this.userService.findOneByEmail(createUserDto.email)
       if (!!user) {
-        return 'E-mail já cadastrado'
+        throw new HttpException('BadRequestException', HttpStatus.BAD_REQUEST, {
+          description: 'E-mail já cadastrado',
+        })
       }
       const saltOrRounds = 10
       const password = await bcrypt.hash(createUserDto.password, saltOrRounds)
@@ -29,7 +31,13 @@ export class AuthService {
         name: newUser.name,
         email: newUser.email,
       }
-      return await this.jwtService.signAsync(payload)
+
+      const token = await this.jwtService.signAsync(payload)
+
+      return {
+        user: payload,
+        token,
+      }
     } catch (error) {
       console.log('error', error)
       throw new Error()
@@ -39,6 +47,7 @@ export class AuthService {
   async auth(auth: LoginDto) {
     try {
       const { user } = await this.userService.findOneByEmail(auth.email)
+      console.log('user', user?.password)
       const isMatch = user && (await bcrypt.compare(auth.password, user?.password))
       if (!isMatch) {
         throw new UnauthorizedException()
@@ -48,7 +57,13 @@ export class AuthService {
         name: user.name,
         email: user.email,
       }
-      return await this.jwtService.signAsync(payload)
+
+      const token = await this.jwtService.signAsync(payload)
+
+      return {
+        user: payload,
+        token,
+      }
     } catch (error) {
       throw new Error(error)
     }

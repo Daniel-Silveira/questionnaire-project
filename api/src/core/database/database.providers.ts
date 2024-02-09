@@ -1,4 +1,7 @@
 import { Sequelize } from 'sequelize-typescript'
+import { Question } from 'src/modules/question/entities/question.entity'
+import { Questionnaire } from 'src/modules/questionnaires/entities/questionnaire.entity'
+import { Responses } from 'src/modules/responses/entities/responses.entity'
 import { User } from 'src/modules/users/entities/user.entity'
 
 export const databaseProviders = [
@@ -13,7 +16,7 @@ export const databaseProviders = [
         password: 'postgres',
         database: 'postgres',
       })
-      sequelize.addModels([User])
+      sequelize.addModels([User, Questionnaire, Question, Responses])
       await sequelize.sync()
       return sequelize
     },

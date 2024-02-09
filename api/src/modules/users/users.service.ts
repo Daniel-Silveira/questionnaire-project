@@ -16,7 +16,7 @@ export class UsersService {
   }
 
   async findAll() {
-    const users = await this.userModel.findAll()
+    const users = await this.userModel.findAll<User>()
 
     return { users }
   }
