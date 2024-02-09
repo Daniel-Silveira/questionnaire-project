@@ -18,6 +18,7 @@ export const QuestionnairesTable = ({ data }: QuestionnairesTableProps) => {
     setParams('modal', 'question')
     setParams('questionnaire', id)
   }
+
   return (
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -61,7 +62,7 @@ export const QuestionnairesTable = ({ data }: QuestionnairesTableProps) => {
               scope="row"
               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              {item.questions.length}
+              {item.questions?.length || 0}
             </th>
 
             <th

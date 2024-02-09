@@ -8,7 +8,7 @@ export const useQuestionnaire = () => {
   const getQuestionnaires = async () => {
     try {
       const { data } = await api.get('/questionnaires')
-      return data.questionnaires
+      return data?.questionnaires
     } catch (error) {
       console.log('error', error)
     }

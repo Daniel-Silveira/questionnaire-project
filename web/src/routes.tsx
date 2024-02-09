@@ -10,7 +10,7 @@ export const router = createBrowserRouter([
     errorElement: <p>Página não encontrada</p>,
     children: [
       {
-        path: '/users',
+        path: '/',
         element: <Users />,
       },
       {

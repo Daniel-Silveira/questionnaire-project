@@ -5,7 +5,6 @@ import { useQuestion } from '../../../hooks/useQuestion'
 
 type Inputs = {
   description: string
-  response: string
 }
 
 export const QuestionForm = () => {
@@ -18,7 +17,6 @@ export const QuestionForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Modal.Content>
         <Input label="Pergunta" {...register('description')} />
-        <Input label="Resposta" {...register('response')} />
       </Modal.Content>
       <Modal.Footer />
     </form>

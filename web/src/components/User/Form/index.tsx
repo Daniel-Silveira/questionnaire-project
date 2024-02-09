@@ -12,10 +12,11 @@ type Inputs = {
 }
 
 type UserFormProps = {
+  errorMessage?: string
   handleCreateUser: (data: Inputs) => void
 }
 
-export const UserForm = ({ handleCreateUser }: UserFormProps) => {
+export const UserForm = ({ errorMessage, handleCreateUser }: UserFormProps) => {
   const validationSchema = yup.object().shape({
     name: yup.string().required('Campo obrigatório'),
     email: yup.string().email('Digite um e-mail válido').required('Campo obrigatório'),
@@ -63,6 +64,7 @@ export const UserForm = ({ handleCreateUser }: UserFormProps) => {
             {...register('confirmPassword')}
           />
         </div>
+        {errorMessage && <p className="text-red-500 text-center font-bold">{errorMessage}</p>}
       </Modal.Content>
       <Modal.Footer />
     </form>

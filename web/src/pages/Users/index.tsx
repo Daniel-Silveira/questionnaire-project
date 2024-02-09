@@ -6,7 +6,7 @@ import { useParams } from '../../hooks/useParams'
 import { useUser } from '../../hooks/useUser'
 
 export const Users = () => {
-  const { data, handleCreateUser } = useUser()
+  const { data, error, handleCreateUser } = useUser()
   const { getParams, setParams } = useParams()
 
   const isOpenModal = !!getParams('modal')
@@ -19,7 +19,7 @@ export const Users = () => {
     <>
       <Modal.Root isOpen={isOpenModal}>
         <Modal.Header title="Cadastrar usuários" />
-        <UserForm handleCreateUser={handleCreateUser} />
+        <UserForm errorMessage={error} handleCreateUser={handleCreateUser} />
       </Modal.Root>
       <Container.Root>
         <Container.Header title="Usuários" textButton="Novo usuário" onClick={handleOpenModal} />

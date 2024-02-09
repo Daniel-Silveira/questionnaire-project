@@ -1,9 +1,11 @@
 import api from '../api'
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from './useParams'
+import { useState } from 'react'
 
 export const useUser = () => {
   const { removeParams } = useParams()
+  const [error, setError] = useState('')
 
   const getUsers = async () => {
     try {
@@ -21,14 +23,14 @@ export const useUser = () => {
 
   const handleCreateUser = async (data: any) => {
     try {
-      await api.post('/users', data)
+      await api.post('/auth/register', data)
 
       refetch()
       removeParams('modal')
     } catch (error) {
-      console.log('error', error)
+      setError('E-mail já cadastrado')
     }
   }
 
-  return { data, handleCreateUser }
+  return { data, error, handleCreateUser }
 }

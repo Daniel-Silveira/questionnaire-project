@@ -12,7 +12,7 @@ export const Sidebar = () => {
         <ul className="space-y-2 font-medium">
           <li>
             <Link
-              to="/users"
+              to="/"
               className="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
             >
               <FiUsers size="1.25rem" />
