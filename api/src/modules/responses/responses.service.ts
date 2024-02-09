@@ -21,6 +21,12 @@ export class ResponsesService {
     return { responses }
   }
 
+  async findAllByQuestionnaireId(questionnaireId: number) {
+    const responses = await this.responseModal.findAll<Responses>({ where: { questionnaireId } })
+
+    return { responses }
+  }
+
   async findOne(id: number) {
     const response = await this.responseModal.findByPk<Responses>(id)
 

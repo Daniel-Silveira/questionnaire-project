@@ -19,6 +19,11 @@ export class ResponsesController {
     return this.responsesService.findAll()
   }
 
+  @Get('questionnaire/:id')
+  findAllByQuestionnaireId(@Param('id') id: string) {
+    return this.responsesService.findAllByQuestionnaireId(+id)
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.responsesService.findOne(+id)
