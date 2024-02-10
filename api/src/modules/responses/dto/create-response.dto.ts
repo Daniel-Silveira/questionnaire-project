@@ -1,15 +1,20 @@
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator'
-
-export class CreateResponseDto {
+import { IsString, IsNotEmpty, ValidateNested, IsNumber } from 'class-validator'
+import { Type } from 'class-transformer'
+export class ResponseDto {
   @IsNotEmpty()
   @IsString()
   description: string
 
   @IsNotEmpty()
-  @IsString()
-  questionnaireId: string
+  @IsNumber()
+  questionnaireId: number
 
   @IsNotEmpty()
-  @IsString()
-  questionId: string
+  @IsNumber()
+  questionId: number
+}
+export class CreateResponseDto {
+  @ValidateNested({ each: true })
+  @Type(() => ResponseDto)
+  responses: ResponseDto[]
 }

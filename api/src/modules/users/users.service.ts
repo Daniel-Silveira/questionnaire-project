@@ -11,18 +11,17 @@ export class UsersService {
   ) {}
   async create(createUserDto: CreateUserDto) {
     const user = await this.userModel.create({ ...createUserDto })
-
     return { user }
   }
 
   async findAll() {
-    const users = await this.userModel.findAll<User>()
+    const users = await this.userModel.findAll<User>({ attributes: { exclude: ['password'] } })
 
     return { users }
   }
 
   async findOneById(id: number) {
-    const user = await this.userModel.findByPk(id)
+    const user = await this.userModel.findByPk(id, { attributes: { exclude: ['password'] } })
 
     return { user }
   }

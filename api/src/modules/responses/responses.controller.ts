@@ -1,17 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common'
 import { ResponsesService } from './responses.service'
 import { CreateResponseDto } from './dto/create-response.dto'
 import { UpdateResponseDto } from './dto/update-response.dto'
 import { ApiTags } from '@nestjs/swagger'
+import { AuthGuard } from '../auth/auth.guard'
+import { CurrentUser } from '../auth/decorator/current-user.decorator'
 
 @ApiTags('responses')
 @Controller('responses')
 export class ResponsesController {
   constructor(private readonly responsesService: ResponsesService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
-  create(@Body() createResponseDto: CreateResponseDto) {
-    return this.responsesService.create(createResponseDto)
+  create(@Body() createResponseDto: CreateResponseDto, @CurrentUser('id') userId: number) {
+    return this.responsesService.create(createResponseDto, userId)
   }
 
   @Get()

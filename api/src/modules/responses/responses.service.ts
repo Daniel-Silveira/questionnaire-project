@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { UpdateResponseDto } from './dto/update-response.dto'
 import { Responses } from './entities/responses.entity'
+import { CreateResponseDto } from './dto/create-response.dto'
 
 @Injectable()
 export class ResponsesService {
@@ -9,8 +10,9 @@ export class ResponsesService {
     private responseModal: typeof Responses
   ) {}
 
-  async create(createResponseDto) {
-    const response = await this.responseModal.bulkCreate<Responses>(createResponseDto)
+  async create(createResponseDto: CreateResponseDto, userId: number) {
+    const data = createResponseDto.responses.map(response => ({ ...response, userId }))
+    const response = await this.responseModal.bulkCreate<Responses>(data)
 
     return { response }
   }
