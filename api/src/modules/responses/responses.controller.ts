@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common'
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common'
 import { ResponsesService } from './responses.service'
 import { CreateResponseDto } from './dto/create-response.dto'
 import { UpdateResponseDto } from './dto/update-response.dto'
@@ -18,10 +18,9 @@ export class ResponsesController {
   }
 
   @Get()
-  findAll() {
-    return this.responsesService.findAll()
+  async findAll(@Query('page') page: number = 1, @Query('limit') limit: number = 10) {
+    return this.responsesService.findAll(page, limit)
   }
-
   @Get('questionnaire/:id')
   findAllByQuestionnaireId(@Param('id') id: string) {
     return this.responsesService.findAllByQuestionnaireId(+id)

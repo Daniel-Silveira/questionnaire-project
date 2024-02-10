@@ -14,10 +14,16 @@ export class UsersService {
     return { user }
   }
 
-  async findAll() {
-    const users = await this.userModel.findAll<User>({ attributes: { exclude: ['password'] } })
+  async findAll(page: number, limit: number) {
+    const offset = (page - 1) * limit
 
-    return { users }
+    const users = await this.userModel.findAll<User>({
+      offset,
+      limit,
+      attributes: { exclude: ['password'] },
+    })
+
+    return { users, meta: { page, limit, offset } }
   }
 
   async findOneById(id: number) {

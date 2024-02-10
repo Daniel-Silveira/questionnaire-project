@@ -18,7 +18,7 @@ export const useQuestionnaire = () => {
 
   const getQuestionnaires = async () => {
     try {
-      const { data } = await api.get('/questionnaires')
+      const { data } = await api.get('/questionnaires?limit=50')
       return data?.questionnaires
     } catch (error) {
       console.log('error', error)

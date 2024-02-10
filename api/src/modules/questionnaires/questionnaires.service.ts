@@ -16,12 +16,16 @@ export class QuestionnairesService {
     return { questionnaire }
   }
 
-  async findAll() {
+  async findAll(page: number, limit: number) {
+    const offset = (page - 1) * limit
+
     const questionnaires = await this.questionnaireModel.findAll<Questionnaire>({
+      offset,
+      limit,
       include: ['questions', 'responses'],
     })
 
-    return { questionnaires }
+    return { questionnaires, meta: { page, limit, offset } }
   }
 
   async findOne(id: number) {

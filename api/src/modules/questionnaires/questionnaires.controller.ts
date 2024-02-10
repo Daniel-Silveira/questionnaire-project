@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common'
 import { QuestionnairesService } from './questionnaires.service'
 import { CreateQuestionnaireDto } from './dto/create-questionnaire.dto'
 import { UpdateQuestionnaireDto } from './dto/update-questionnaire.dto'
@@ -15,8 +15,8 @@ export class QuestionnairesController {
   }
 
   @Get()
-  findAll() {
-    return this.questionnairesService.findAll()
+  findAll(@Query('page') page: number = 1, @Query('limit') limit: number = 10) {
+    return this.questionnairesService.findAll(page, limit)
   }
 
   @Get(':id')

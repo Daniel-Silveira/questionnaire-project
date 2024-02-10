@@ -15,10 +15,15 @@ export class QuestionService {
     return { question }
   }
 
-  async findAll() {
-    const questions = await this.questionModel.findAll<Question>()
+  async findAll(page: number, limit: number) {
+    const offset = (page - 1) * limit
 
-    return { questions }
+    const questions = await this.questionModel.findAll<Question>({
+      offset,
+      limit,
+    })
+
+    return { questions, meta: { page, limit, offset } }
   }
 
   async findOne(id: number) {

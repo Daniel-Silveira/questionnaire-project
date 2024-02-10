@@ -17,10 +17,11 @@ export class ResponsesService {
     return { response }
   }
 
-  async findAll() {
-    const responses = await this.responseModal.findAll<Responses>()
+  async findAll(page: number, limit: number) {
+    const offset = (page - 1) * limit
+    const responses = await this.responseModal.findAll<Responses>({ offset, limit })
 
-    return { responses }
+    return { responses, meta: { page, limit, offset } }
   }
 
   async findAllByQuestionnaireId(questionnaireId: number) {

@@ -9,7 +9,7 @@ export const useUser = () => {
 
   const getUsers = async () => {
     try {
-      const { data } = await api.get('/users')
+      const { data } = await api.get('/users?limit=50')
       return data.users
     } catch (error) {
       console.log('error', error)
