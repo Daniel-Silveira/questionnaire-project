@@ -47,16 +47,15 @@ export const useQuestionnaire = () => {
     }
   }
 
-  const handleSendResponses = async (form: Question[]) => {
-    const data = form.map((item) => ({
-      description: item.description,
+  const handleSendResponses = async () => {
+    const data = questionnaireDetails.questions?.map((item) => ({
+      description: item.response,
       questionId: Number(item.id),
       questionnaireId: Number(params.id)
     }))
 
     try {
       await api.post('/responses', data)
-      alert('Suas respostas foram salvas com sucesso!')
       navigate('/')
     } catch (error) {
       alert('Ocorreu um erro ao salvar suas respostas')
@@ -69,5 +68,11 @@ export const useQuestionnaire = () => {
     }
   }, [params])
 
-  return { data, questionnaireDetails, getQuestionnaire, handleSendResponses }
+  return {
+    data,
+    questionnaireDetails,
+    getQuestionnaire,
+    handleSendResponses,
+    setQuestionnaireDetails
+  }
 }

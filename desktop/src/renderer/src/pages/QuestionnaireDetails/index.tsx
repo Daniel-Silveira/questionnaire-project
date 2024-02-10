@@ -1,19 +1,17 @@
 import { Input } from '@renderer/components/shared/Input'
 import { useQuestionnaire, Question } from '@renderer/hooks/useQuestionnaire'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 
 export const QuestionnaireDetails = () => {
-  const { questionnaireDetails, handleSendResponses } = useQuestionnaire()
-
-  const [data, setData] = useState<Question[]>([])
+  const { questionnaireDetails, handleSendResponses, setQuestionnaireDetails } = useQuestionnaire()
 
   const handleChangeResponse = (event: ChangeEvent<HTMLInputElement>, question: Question) => {
-    const updatedData = questionnaireDetails.questions.map((item) =>
+    const updatedQuestions = questionnaireDetails.questions.map((item) =>
       item.id === question.id ? { ...question, response: event.target.value } : item
     )
 
-    setData(updatedData)
+    setQuestionnaireDetails((prev) => ({ ...prev, questions: updatedQuestions }))
   }
 
   return (
@@ -43,7 +41,7 @@ export const QuestionnaireDetails = () => {
 
       <div className="flex justify-center mt-4">
         <button
-          onClick={() => handleSendResponses(data)}
+          onClick={handleSendResponses}
           className="px-4 py-2 mt-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300"
         >
           Enviar respostas

@@ -36,13 +36,13 @@ function createWindow(): void {
   tray.setContextMenu(
     Menu.buildFromTemplate([
       {
-        label: 'Show App',
+        label: 'Abrir questionarios',
         click: function () {
           mainWindow.show()
         }
       },
       {
-        label: 'Quit',
+        label: 'Fechar',
         click: function () {
           app.quit()
         }
