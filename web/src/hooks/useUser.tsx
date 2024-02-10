@@ -21,7 +21,7 @@ export const useUser = () => {
     queryFn: () => getUsers(),
   })
 
-  const handleCreateUser = async (data: any) => {
+  const handleCreateUser = async (data: { name: string; email: string; password: string }) => {
     try {
       await api.post('/auth/register', data)
 

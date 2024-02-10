@@ -1,10 +1,11 @@
 import { useParams } from '../../hooks/useParams'
 
 type ModalFooterProps = {
+  textSaveButton?: string
   onSave?: () => void
 }
 
-export const ModalFooter = ({ onSave }: ModalFooterProps) => {
+export const ModalFooter = ({ textSaveButton = 'Salvar', onSave }: ModalFooterProps) => {
   const { removeParams } = useParams()
 
   const handleCloseModal = () => removeParams('modal')
@@ -22,7 +23,7 @@ export const ModalFooter = ({ onSave }: ModalFooterProps) => {
         className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
         onClick={onSave}
       >
-        Salvar
+        {textSaveButton}
       </button>
     </div>
   )

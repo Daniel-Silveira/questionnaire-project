@@ -1,3 +1,4 @@
+import { useQuestionnaire } from '../../../hooks/useQuestionnaire'
 import { Modal } from '../../Modal'
 import { Input } from '../../shared/Input'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -7,11 +8,9 @@ type Inputs = {
   description: string
 }
 
-type QuestionnairesFormProps = {
-  handleCreate: (data: Inputs) => void
-}
+export const QuestionnairesForm = () => {
+  const { handleCreate } = useQuestionnaire()
 
-export const QuestionnairesForm = ({ handleCreate }: QuestionnairesFormProps) => {
   const { register, handleSubmit } = useForm<Inputs>()
 
   const onSubmit: SubmitHandler<Inputs> = data => handleCreate(data)
