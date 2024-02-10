@@ -1,10 +1,18 @@
 import { Input } from '@renderer/components/shared/Input'
 import { useAuth } from '@renderer/hooks/useAuth'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const Login = () => {
-  const { error, handleLogin } = useAuth()
+  const navigate = useNavigate()
+  const { error, isLogged, handleLogin } = useAuth()
   const [form, setForm] = useState({ email: '', password: '' })
+
+  useEffect(() => {
+    if (!!isLogged) {
+      navigate('/')
+    }
+  }, [isLogged])
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">

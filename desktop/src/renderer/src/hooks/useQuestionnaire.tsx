@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import api from '../api'
+import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -9,11 +9,11 @@ type Questionnaire = {
   id: string
   name: string
   description: string
-
   questions: Question[]
 }
 
 export const useQuestionnaire = () => {
+  const token = sessionStorage.getItem('authToken')
   const params = useParams()
   const navigate = useNavigate()
 
@@ -55,7 +55,11 @@ export const useQuestionnaire = () => {
     }))
 
     try {
-      await api.post('/responses', data)
+      await api.post(
+        '/responses',
+        { responses: data },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       navigate('/')
     } catch (error) {
       alert('Ocorreu um erro ao salvar suas respostas')

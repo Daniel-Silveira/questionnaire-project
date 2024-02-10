@@ -7,7 +7,9 @@ export const useQuestion = () => {
 
   const handleCreate = async (data: { description: string }) => {
     try {
-      await api.post('/question', { ...data, questionnaireId: getParams('questionnaire') })
+      const questionnaireId = Number(getParams('questionnaire'))
+
+      await api.post('/question', { ...data, questionnaireId })
 
       cleanQueries()
     } catch (error) {
