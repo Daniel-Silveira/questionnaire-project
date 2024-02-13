@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common'
+import { Controller, Get, Post, Body, Param, Delete, Query, Put } from '@nestjs/common'
 import { QuestionnairesService } from './questionnaires.service'
 import { CreateQuestionnaireDto } from './dto/create-questionnaire.dto'
 import { UpdateQuestionnaireDto } from './dto/update-questionnaire.dto'
@@ -24,7 +24,7 @@ export class QuestionnairesController {
     return this.questionnairesService.findOne(+id)
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateQuestionnaireDto: UpdateQuestionnaireDto) {
     return this.questionnairesService.update(+id, updateQuestionnaireDto)
   }

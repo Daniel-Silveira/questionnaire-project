@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common'
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Query, Put } from '@nestjs/common'
 import { ResponsesService } from './responses.service'
 import { CreateResponseDto } from './dto/create-response.dto'
 import { UpdateResponseDto } from './dto/update-response.dto'
@@ -31,7 +31,7 @@ export class ResponsesController {
     return this.responsesService.findOne(+id)
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateResponseDto: UpdateResponseDto) {
     return this.responsesService.update(+id, updateResponseDto)
   }
